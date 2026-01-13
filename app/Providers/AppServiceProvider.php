@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Invoice;
+use App\Models\User;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Gate::define('can-approve-invoice', function (User $user, $invoice): bool {
+            return $user->id === $invoice->user_id;
+        });
+        \Gate::define('can-view-invoice', function (User $user, $invoice): bool {
+            return $user->id === $invoice->user_id;
+        });
     }
 }
