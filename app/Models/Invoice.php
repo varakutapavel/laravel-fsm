@@ -19,7 +19,10 @@ use App\StateMachines\Invoice\DraftInvoiceStatus;
 class Invoice extends Model
 {
     protected $fillable = [
-        'status'
+        'status',
+        'user_id',
+        'invoice_number',
+        'id'
     ];
     protected $casts = [
         'status' => InvoiceStatesEnum::class,
