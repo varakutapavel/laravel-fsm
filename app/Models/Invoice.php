@@ -18,6 +18,9 @@ use App\StateMachines\Invoice\DraftInvoiceStatus;
  */
 class Invoice extends Model
 {
+    protected $keyType = 'string';
+
+    public $incrementing = false;
     protected $fillable = [
         'status',
         'user_id',
