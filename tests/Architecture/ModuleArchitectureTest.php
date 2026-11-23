@@ -53,4 +53,24 @@ final class ModuleArchitectureTest
             ->dependOn()
             ->classes(Selector::inNamespace('App\Http\Controllers'));
     }
+
+
+    public function test_invoice_application_must_not_depend_on_presentation(): TargetExcludeOrTipOrBuildStep
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace('App\Modules\Invoice\Application'))
+            ->shouldNot()
+            ->dependOn()
+            ->classes(Selector::inNamespace('App\Http'));
+    }
+
+    public function test_invoice_application_must_not_depend_on_infrastructure(): TargetExcludeOrTipOrBuildStep
+    {
+        return PHPat::rule()
+            ->classes(Selector::inNamespace('App\Modules\Invoice\Application'))
+            ->shouldNot()
+            ->dependOn()
+            ->classes(Selector::inNamespace('App\Modules\Invoice\Infrastructure'));
+    }
+
 }

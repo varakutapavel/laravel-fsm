@@ -4,18 +4,18 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Invoice;
+use App\Modules\Invoice\Application\UseCases\SubmitInvoiceForApproval;
 
 final class InvoiceService
 {
+
+    public function __construct(
+        private readonly SubmitInvoiceForApproval $submitInvoiceForApproval,
+    ) {
+    }
     public function pending(Invoice $invoice): Invoice
     {
-        // В реальном проекте тут идет проверка накладной, на соответсвие бизнес правилам.
-
-        $invoice->takeState()->pending();
-
-        //Журналирование на каждой смене статуса
-
-        return $invoice->refresh();
+        return $this->submitInvoiceForApproval->execute($invoice);
     }
 
     public function approve(Invoice $invoice): Invoice

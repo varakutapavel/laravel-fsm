@@ -12,12 +12,15 @@ use App\StateMachines\Invoice\RejectedInvoiceStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\StateMachines\Invoice\DraftInvoiceStatus;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 
 /**
  * @mixin IdeHelperInvoice
  */
 class Invoice extends Model
 {
+    use HasUuids;
+
     protected $keyType = 'string';
 
     public $incrementing = false;

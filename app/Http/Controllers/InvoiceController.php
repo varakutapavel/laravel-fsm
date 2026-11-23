@@ -7,16 +7,18 @@ use App\Http\Requests\InvoiceApproveRequest;
 use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use App\Services\InvoiceService;
+use App\Modules\Invoice\Application\UseCases\SubmitInvoiceForApproval;
 
 final class InvoiceController extends Controller
 {
     public function __construct(
-        private readonly InvoiceService $invoiceService
+        private readonly SubmitInvoiceForApproval $submitInvoiceForApproval,
+        private readonly InvoiceService $invoiceService,
     ){}
 
     public function sendToApprove(Invoice $invoice): InvoiceResource
     {
-        $this->invoiceService->pending($invoice);
+        $invoice = $this->submitInvoiceForApproval->execute($invoice);
         return InvoiceResource::make($invoice);
     }
 
