@@ -9,7 +9,7 @@ use App\StateMachines\Invoice\BaseInvoiceStatus;
 
 final class DraftInvoiceStatus extends BaseInvoiceStatus
 {
-    public function pending()
+    public function pending(): void
     {
         $this->invoice->update(['status' => InvoiceStatesEnum::PENDING]);
     }

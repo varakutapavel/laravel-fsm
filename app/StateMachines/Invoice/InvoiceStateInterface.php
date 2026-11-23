@@ -8,12 +8,12 @@ use App\Models\Invoice;
 interface InvoiceStateInterface
 {
     public function __construct(Invoice $invoice);
-    public function pending();
-    public function approve();
-    public function awaitingPayment();
-    public function paid();
-    public function reject();
-    public function cancel();
-    public function draft();
+    public function pending(): void;
+    public function approve(): void;
+    public function awaitingPayment(): void;
+    public function paid(): void;
+    public function reject(): void;
+    public function cancel(): void;
+    public function draft(): void;
 
 }

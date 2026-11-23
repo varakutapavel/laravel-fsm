@@ -13,10 +13,10 @@ final class InvoiceApproveRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(Request $request): bool
+    public function authorize(Request $request): bool|null
     {
         $invoice = $this->route('invoice');
-        return $request->user()->can('can-approve-invoice', $invoice);
+        return $request->user()?->can('can-approve-invoice', $invoice);
     }
 
     /**

@@ -25,7 +25,7 @@ class CreateInvoice extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $id = fake()->uuid();
         $user_id = $this->argument('user_id');

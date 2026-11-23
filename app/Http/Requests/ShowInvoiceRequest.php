@@ -9,10 +9,10 @@ class ShowInvoiceRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize(): bool|null
     {
         $invoice = $this->route('invoice');
-        return $this->user()->can('can-view-invoice', $invoice);
+        return $this->user()?->can('can-view-invoice', $invoice);
     }
 
     /**

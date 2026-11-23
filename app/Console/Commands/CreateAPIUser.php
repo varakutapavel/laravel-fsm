@@ -25,7 +25,7 @@ class CreateAPIUser extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $name = fake()->name;
         $email = fake()->unique()->email;
@@ -37,13 +37,11 @@ class CreateAPIUser extends Command
             'password' => $password,
             'password_confirmation' => $password,
         ]);
-        if ($user instanceof User) {
-            $token = $user->createToken($email);
-            $this->info('User created');
-            $this->info(sprintf('ID# %d, email: %s, AccessToken:%s',
-                $user->id,
-                $user->email,
-                $token->plainTextToken));
-        }
+        $token = $user->createToken($email);
+        $this->info('User created');
+        $this->info(sprintf('ID# %d, email: %s, AccessToken:%s',
+            $user->id,
+            $user->email,
+            $token->plainTextToken));
     }
 }

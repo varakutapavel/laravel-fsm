@@ -14,37 +14,37 @@ class BaseInvoiceStatus implements InvoiceStateInterface
         public Invoice $invoice
     ){}
 
-    public function approve()
+    public function approve(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }
 
-    public function paid()
+    public function paid(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }
 
-    public function reject()
+    public function reject(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }
 
-    public function cancel()
+    public function cancel(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }
 
-    public function draft()
+    public function draft(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }
 
-    public function awaitingPayment()
+    public function awaitingPayment(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }
 
-    public function pending()
+    public function pending(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
     }

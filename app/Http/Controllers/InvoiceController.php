@@ -11,10 +11,10 @@ use App\Services\InvoiceService;
 final class InvoiceController extends Controller
 {
     public function __construct(
-        private InvoiceService $invoiceService
+        private readonly InvoiceService $invoiceService
     ){}
 
-    public function sendToApprove(Invoice $invoice)
+    public function sendToApprove(Invoice $invoice): InvoiceResource
     {
         $this->invoiceService->pending($invoice);
         return InvoiceResource::make($invoice);
@@ -32,7 +32,8 @@ final class InvoiceController extends Controller
         return InvoiceResource::make($invoice->refresh());
     }
 
-    public function reject(Invoice  $invoice){
+    public function reject(Invoice  $invoice): InvoiceResource
+    {
         $invoice->takeState()->reject();
         return InvoiceResource::make($invoice->refresh());
     }
@@ -42,13 +43,13 @@ final class InvoiceController extends Controller
         return InvoiceResource::make($invoice);
     }
 
-    public function sendToCustomer(Invoice $invoice)
+    public function sendToCustomer(Invoice $invoice): InvoiceResource
     {
         $this->invoiceService->awaitingPayment($invoice);
         return InvoiceResource::make($invoice->refresh());
     }
 
-    public function draft(Invoice $invoice)
+    public function draft(Invoice $invoice): InvoiceResource
     {
         $this->invoiceService->draft($invoice);
         return InvoiceResource::make($invoice->refresh());

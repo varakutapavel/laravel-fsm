@@ -1,0 +1,17 @@
+includes:
+    - vendor/phpat/phpat/extension.neon
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: max
+    paths:
+        - app
+        - tests/Architecture
+    scanFiles:
+       - _ide_helper_models.php
+
+services:
+    -
+        class: Tests\Architecture\ModuleArchitectureTest
+        tags:
+            - phpat.test

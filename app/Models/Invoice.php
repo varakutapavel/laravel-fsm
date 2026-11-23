@@ -28,6 +28,9 @@ class Invoice extends Model
         'status' => InvoiceStatesEnum::class,
     ];
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -35,7 +38,7 @@ class Invoice extends Model
 
     public function takeState(): InvoiceStateInterface
     {
-        $s = match($this->status) {
+        return match ($this->status) {
             InvoiceStatesEnum::DRAFT => new DraftInvoiceStatus($this),
             InvoiceStatesEnum::PENDING => new PendingInvoiceStatus($this),
             InvoiceStatesEnum::APPROVED => new ApprovedInvoiceStatus($this),
@@ -43,8 +46,6 @@ class Invoice extends Model
             InvoiceStatesEnum::AWAITING_PAIMENT => new AwaitingPaymentInvoiceStatus($this),
             InvoiceStatesEnum::CANCELLED => new BaseInvoiceStatus($this),
             InvoiceStatesEnum::PAID => new BaseInvoiceStatus($this),
-            default => throw new \InvalidArgumentException('Invalid Status'),
         };
-        return $s;
     }
 }
