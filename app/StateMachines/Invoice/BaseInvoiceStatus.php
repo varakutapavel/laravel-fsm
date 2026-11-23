@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\StateMachines\Invoice;
 
+use App\Enums\InvoiceStatesEnum;
+use App\Enums\InvoiceTransitionEnum;
 use App\Models\Invoice;
 
 class BaseInvoiceStatus implements InvoiceStateInterface
@@ -47,5 +49,20 @@ class BaseInvoiceStatus implements InvoiceStateInterface
     public function pending(): void
     {
         throw new \LogicException(__METHOD__ . ' not implemented yet.');
+    }
+
+    protected function transition(InvoiceTransitionEnum $transition): void
+    {
+        /** @var InvoiceStatesEnum $current */
+        $current = $this->invoice->status;
+
+        $next = (new InvoiceTransitionMap())->next(
+            $current,
+            $transition,
+        );
+
+        $this->invoice->update([
+            'status' => $next,
+        ]);
     }
 }
